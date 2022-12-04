@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -47,7 +48,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::query()
+            ->findOrFail($id);
+
+        return view('pages.products.show', compact('product'));
     }
 
     /**

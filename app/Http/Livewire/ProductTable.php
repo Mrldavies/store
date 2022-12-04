@@ -164,7 +164,7 @@ final class ProductTable extends PowerGridComponent
         return [
             Button::make('edit', 'Edit')
                 ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-                ->route('product.edit', ['product' => 'id']),
+                ->route('product.show', ['product' => 'id']),
 
             Button::make('destroy', 'Delete')
                 ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
