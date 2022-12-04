@@ -4,23 +4,23 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Laraberg extends Component
+class Toggle extends Component
 {
 
     public $name;
-    public $id;
-    public $content;
+    public $label;
+    public $value;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $id, $content = null)
+    public function __construct($name, $label, $value)
     {
         $this->name = $name;
-        $this->id = $id;
-        $this->content = $content;
+        $this->label = $label;
+        $this->value = $value;
     }
 
     /**
@@ -30,10 +30,10 @@ class Laraberg extends Component
      */
     public function render()
     {
-        return view('components.laraberg', [
+        return view('components.toggle', [
             'name' => $this->name,
-            'id' => $this->id,
-            'content' => $this->content,
+            'label' => $this->label,
+            'value' => $this->value,
         ]);
     }
 }

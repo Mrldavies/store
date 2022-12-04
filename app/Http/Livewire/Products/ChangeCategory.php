@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
+use Illuminate\Http\Request;
 
 /**
  * Models
  */
 
 use App\Models\Category;
+use App\Models\Product;
 
 /**
  * Carbon
@@ -32,11 +34,11 @@ class ChangeCategory extends Component
     public $selectCategory;
     public $product;
     public $edit;
+    public $productId;
 
-    public function __construct($product)
+    public function __construct()
     {
-        $this->product = $product;
-        $this->categoryId = 3;
+        $this->categoryId;
     }
 
     /**
@@ -77,6 +79,11 @@ class ChangeCategory extends Component
         return Category::descendantsAndSelf($id);
     }
 
+    private function findProduct($id)
+    {
+        return Product::findOrFail($id);
+    }
+
     /**
      * Update product category
      *
@@ -85,6 +92,11 @@ class ChangeCategory extends Component
      */
     public function updateCategory(int $id)
     {
+        $product = $this->findProduct($this->productId);
+
+        $product->category_id = $id;
+        $product->save();
+
         $this->currentCategory = $this->currentProductCategory($id);
     }
 
@@ -113,7 +125,7 @@ class ChangeCategory extends Component
 
     public function edit()
     {
-        $this->edit = true;
+        $this->edit = !$this->edit;
     }
 
     /**
@@ -121,10 +133,13 @@ class ChangeCategory extends Component
      *
      * @return void
      */
-    public function mount()
+    public function mount(Request $request)
     {
+
+        $this->productId = $request->route('product');
         $this->edit = false;
         $this->child = false;
+        $this->categoryId = $this->findProduct($this->productId)->category_id;
         $this->currentCategory = $this->currentProductCategory($this->categoryId);
         $this->categories = $this->topLevelCategories();
     }
