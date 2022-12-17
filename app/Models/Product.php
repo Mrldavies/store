@@ -19,6 +19,7 @@ class Product extends Model
         'long_description',
         'qty',
         'price',
+        'enabled',
     ];
 
     public function __construct()
@@ -29,5 +30,10 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function priceHistory()
+    {
+        return $this->hasMany(PriceHistory::class);
     }
 }

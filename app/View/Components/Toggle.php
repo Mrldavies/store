@@ -10,17 +10,19 @@ class Toggle extends Component
     public $name;
     public $label;
     public $value;
+    public $checked;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $label, $value)
+    public function __construct($name, $label, $value, $checked = false)
     {
         $this->name = $name;
         $this->label = $label;
         $this->value = $value;
+        $this->checked = $checked;
     }
 
     /**
@@ -34,6 +36,7 @@ class Toggle extends Component
             'name' => $this->name,
             'label' => $this->label,
             'value' => $this->value,
+            'checked' => $this->checked,
         ]);
     }
 }

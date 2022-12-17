@@ -10,15 +10,19 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <x-accordion title="Product">
-                        <x-toggle label="Enable Product" name="enable" :value="$product->enabled" />
-                        <x-input-group label="Name" :value="$product->name" />
-                        <x-input-group label="Price" :value="$product->price" type="number" />
-                        <x-input-group label="SKU" :value="$product->sku" />
-                    </x-accordion>
+                    <form method="POST" action="{{ route('product.update', ['product' => $product->id]) }}">
 
+                    @method('PUT')
+                    @csrf
+
+                    <x-accordion title="Product">
+                        <x-toggle label="Enable Product" name="enabled" :checked="$product->checked" :value="1" />
+                        <x-input-group label="Name" name="name" :value="$product->name" />
+                        <x-input-group label="Price" name="price" :value="$product->price" />
+                        <x-input-group label="SKU" name="sku" :value="$product->sku" />
+                    </x-accordion>
                     <x-accordion title="Short Description">
-                        <textarea>{{ $product->description }}</textarea>
+                        <textarea name="description">{{ $product->description }}</textarea>
                     </x-accordion>
 
                     <x-accordion title="Long Description">
@@ -42,6 +46,8 @@
                     <x-primary-button>
                         {{ __('Update Product') }}
                     </x-primary-button>
+
+                    </form>
 
                 </div>
             </div>
